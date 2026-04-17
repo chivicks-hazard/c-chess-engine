@@ -1,6 +1,20 @@
 #ifndef DEFS_H
 #define DEFS_H
 
+#include <stdlib.h>
+
+#define DEBUG // comment this out to disable assertions
+
+#ifndef DEBUG
+#define ASSERT(n)
+#else
+#define ASSERT(n) \
+    if (!(n)) { \
+        printf("ASSERTION: %s failed on %s at %s:%d\n", #n, __DATE__, __FILE__, __LINE__); \
+        exit(1); \
+    }
+#endif
+
 typedef unsigned long long U64;
 
 #define NAME "Vice 1.0"
@@ -56,10 +70,25 @@ typedef struct {
     int minorPieces[3];
 
     S_UNDO history[MAXGAMEMOVES];
+
+    // piece list
+    int pieceList[13][10];
 } S_BOARD;
 
 // Global variables
 extern int Sq120ToSq64[BOARD_SQ_NUMBER];
 extern int Sq64ToSq120[64];
+
+// Macro definitions
+#define FR2SQ(f, r) ( (21 + (f) ) + ( (r) * 10 ) ) // f is file, r is rank
+#define SQ64(sq120) (Sq120ToSq64[(sq120)])
+#define POP(b) PopBit(b)
+#define CNT(b) CountBits(b)
+
+// Function prototypes
+extern void AllInit();
+extern void PrintBitBoard(U64 bb);
+extern int PopBit(U64 *bb);
+extern int CountBits(U64 bb);
 
 #endif
