@@ -1,3 +1,4 @@
 {
-  "makefile.configureOnOpen": true
+  "makefile.configureOnOpen": true,
+  "C_Cpp.default.compilerPath": "C:/Program Files/MingW-w64/bin/gcc.exe"
 }
