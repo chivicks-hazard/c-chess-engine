@@ -19,6 +19,49 @@ U64 PieceKeys[13][120]; // 13 for all possible pieces, 120 for all possible squa
 U64 SideKey;
 U64 CastleKeys[16];
 
+int FilesBoard[BOARD_SQ_NUMBER];
+int RanksBoard[BOARD_SQ_NUMBER];
+
+void InitFilesRanksBoard() {
+    int index = 0;
+    int file = FILE_A;
+    int rank = RANK_1;
+    int sq = A1;
+    int sq64 = 0;
+
+    for (index = 0; index < BOARD_SQ_NUMBER; index++) {
+        FilesBoard[index] = OFFBOARD;
+        RanksBoard[index] = OFFBOARD;
+    }
+
+    for (rank = RANK_1; rank <= RANK_8; rank++) {
+        for (file = FILE_A; file <= FILE_H; file++) {
+            sq = FR2SQ(file, rank);
+            FilesBoard[sq] = file;
+            RanksBoard[sq] = rank;
+        }
+    }
+
+    // Checking the FilesBoard and RanksBoard arrays
+    /* printf("FilesBoard\n");
+    for (index = 0; index < BOARD_SQ_NUMBER; index++) {
+        if (index % 10 == 0 && index != 0) {
+            printf("\n");
+        }
+
+        printf("%4d", FilesBoard[index]);
+    };
+    
+    printf("RanksBoard\n");
+    for (index = 0; index < BOARD_SQ_NUMBER; index++) {
+        if (index % 10 == 0 && index != 0) {
+            printf("\n");
+        }
+
+        printf("%4d", RanksBoard[index]);
+    }; */
+}
+
 void InitHashKeys() {
     int index = 0;
     int index2 = 0;
@@ -78,4 +121,5 @@ void AllInit() {
     InitSq120ToSq64();
     InitBitMasks();
     InitHashKeys();
+    InitFilesRanksBoard();
 }

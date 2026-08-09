@@ -67,9 +67,10 @@ typedef struct {
     U64 posKey;
 
     int pieceNum[13];
-    int bigPieces[3];
-    int majorPieces[3];
-    int minorPieces[3];
+    int bigPieces[2];
+    int majorPieces[2];
+    int minorPieces[2];
+    int material[2];
 
     S_UNDO history[MAXGAMEMOVES];
 
@@ -89,13 +90,20 @@ extern char PieceChar[];
 extern char SideChar[];
 extern char RankChar[];
 extern char FileChar[];
+extern int PieceBig[13];
+extern int PieceMajor[13];
+extern int PieceMinor[13];
+extern int PieceValue[13];
+extern int PieceColour[13];
+extern int FilesBoard[BOARD_SQ_NUMBER];
+extern int RanksBoard[BOARD_SQ_NUMBER];
 
 // Macro definitions
 #define FR2SQ(f, r) ( (21 + (f) ) + ( (r) * 10 ) ) // f is file, r is rank
 #define SQ64(sq120) (Sq120ToSq64[(sq120)])
 #define SQ120(sq64) (Sq64ToSq120[(sq64)])
 #define POP(b) PopBit(b)
-#define CNT(b) CountBits(b)
+#define COUNT(b) CountBits(b)
 #define CLRBIT(bb, sq) ((bb) &= ClearMask[(sq)])
 #define SETBIT(bb, sq) ((bb) |= SetMask[(sq)])
 #define RAND_64 ( \
@@ -116,5 +124,7 @@ extern U64 GeneratePosKey(const S_BOARD *pos);
 extern void ResetBoard(S_BOARD *pos);
 extern int ParseFen(char *fen, S_BOARD *pos);
 extern void PrintBoard(const S_BOARD *pos);
+extern void UpdateListsMaterial(S_BOARD *pos);
+extern int CheckBoard(const S_BOARD *pos);
 
 #endif
