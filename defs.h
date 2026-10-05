@@ -97,7 +97,11 @@ extern int PieceValue[13];
 extern int PieceColour[13];
 extern int FilesBoard[BOARD_SQ_NUMBER];
 extern int RanksBoard[BOARD_SQ_NUMBER];
-
+extern int PieceKnight[13];
+extern int PieceKing[13];
+extern int PieceRookQueen[13];
+extern int PieceBishopQueen[13]; 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
 // Macro definitions
 #define FR2SQ(f, r) ( (21 + (f) ) + ( (r) * 10 ) ) // f is file, r is rank
 #define SQ64(sq120) (Sq120ToSq64[(sq120)])
@@ -113,6 +117,10 @@ extern int RanksBoard[BOARD_SQ_NUMBER];
     ((U64) rand() << 45) | \
     (((U64) rand() & 0xf) << 60) \
 );
+#define IsBishopQueen(p) (PieceBishopQueen[(p)])
+#define IsRookQueen(p) (PieceRookQueen[(p)])
+#define IsKnight(p) (PieceKnight[(p)])
+#define IsKing(p) (PieceKing[(p)])
 
 // Function prototypes
 extern void AllInit();
@@ -126,5 +134,6 @@ extern int ParseFen(char *fen, S_BOARD *pos);
 extern void PrintBoard(const S_BOARD *pos);
 extern void UpdateListsMaterial(S_BOARD *pos);
 extern int CheckBoard(const S_BOARD *pos);
+extern int SqAttacked(const int sq, const int side, const S_BOARD *pos);
 
 #endif
