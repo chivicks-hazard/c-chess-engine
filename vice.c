@@ -40,6 +40,25 @@ void ShowSQAtBySide(const int side, const S_BOARD *pos) {
     printf("\n\n");
 }
 
+void PrintBin(int move) {
+    int index = 0;
+    printf("As binary: \n");
+
+    for (index = 27; index >= 0; index--) {
+        if ((1 << index) & move) {
+            printf("1");
+        } else {
+            printf("0");
+        }
+
+        if (index != 28 && index % 4 == 0) {
+            printf(" ");
+        }
+    }
+
+    printf("\n");
+}
+
 int main() {
     AllInit(); 
 
@@ -172,7 +191,7 @@ int main() {
     // ASSERT(CheckBoard(board));
 
     // For attack square demonstration
-    S_BOARD board[1];
+    /* S_BOARD board[1];
 
     ParseFen(FEN_1, board);
 
@@ -182,6 +201,26 @@ int main() {
     ShowSQAtBySide(WHITE, board);
 
     printf("\nSquares attacked by Black:\n");
-    ShowSQAtBySide(BLACK, board);
+    ShowSQAtBySide(BLACK, board); */
+
+    // Storing moves in binary
+    int move = 0;
+    int from = 6;
+    int to = 12;
+    int captured = wR;
+    int promoted = bR;
+
+    move = (from) | (to << 7) | (captured << 14) | (promoted << 20);
+
+    printf("\nDecimal: %d, Hexadecimal: %X\n", move, move);
+    PrintBin(move);
+
+    printf("\n");
+    
+    printf(
+        "From: %d, To: %d, Captured: %d, Promoted: %d",
+        FROMSQ(move), TOSQ(move), CAPTURED(move), PROMOTED(move)
+    );
+
     return 0;
 }

@@ -44,6 +44,11 @@ enum { WKCA = 1, WQCA = 2, BKCA = 4, BQCA = 8}; // White King Castling, White Qu
 
 typedef struct {
     int move;
+    int score;
+} S_MOVE;
+
+typedef struct {
+    int move;
     int castlePerm;
     int enPassant;
     int fiftyMove;
@@ -121,6 +126,15 @@ extern int PieceBishopQueen[13];
 #define IsRookQueen(p) (PieceRookQueen[(p)])
 #define IsKnight(p) (PieceKnight[(p)])
 #define IsKing(p) (PieceKing[(p)])
+#define FROMSQ(m) ((m) & 0x3F)
+#define TOSQ(m) (((m) >> 7) & 0x3F)
+#define CAPTURED(m) (((m) >> 14) & 0xF)
+#define PROMOTED(m) (((m) >> 20) & 0xF)
+#define MOVEFLAGENPASSANT 0x4000
+#define MOVEFLAGPAWNSTART 0x8000
+#define MOVEFLAGCASTLE 0x1000000
+#define MOVEFLAGCAPTURED 0x7C000
+#define MOVEFLAGPROMOTED 0xF00000
 
 // Function prototypes
 extern void AllInit();
