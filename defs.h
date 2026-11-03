@@ -126,8 +126,8 @@ extern int PieceBishopQueen[13];
 #define IsRookQueen(p) (PieceRookQueen[(p)])
 #define IsKnight(p) (PieceKnight[(p)])
 #define IsKing(p) (PieceKing[(p)])
-#define FROMSQ(m) ((m) & 0x3F)
-#define TOSQ(m) (((m) >> 7) & 0x3F)
+#define FROMSQ(m) ((m) & 0x7F)
+#define TOSQ(m) (((m) >> 7) & 0x7F)
 #define CAPTURED(m) (((m) >> 14) & 0xF)
 #define PROMOTED(m) (((m) >> 20) & 0xF)
 #define MOVEFLAGENPASSANT 0x4000
@@ -149,5 +149,7 @@ extern void PrintBoard(const S_BOARD *pos);
 extern void UpdateListsMaterial(S_BOARD *pos);
 extern int CheckBoard(const S_BOARD *pos);
 extern int SqAttacked(const int sq, const int side, const S_BOARD *pos);
+extern char *PrintMove(const int move);
+extern char *PrintSq(const int sq);
 
 #endif

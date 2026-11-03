@@ -16,7 +16,7 @@
 #define FEN_4 "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1"
 
 // For attack square demonstration
-void ShowSQAtBySide(const int side, const S_BOARD *pos) {
+void ShowSQAttackedBySide(const int side, const S_BOARD *pos) {
     int rank = 0;
     int file = 0;
     int sq = 0;
@@ -198,13 +198,13 @@ int main() {
     PrintBoard(board);
 
     printf("\nSquares attacked by White:\n");
-    ShowSQAtBySide(WHITE, board);
+    ShowSQAttackedBySide(WHITE, board);
 
     printf("\nSquares attacked by Black:\n");
-    ShowSQAtBySide(BLACK, board); */
+    ShowSQAttackedBySide(BLACK, board); */
 
     // Storing moves in binary
-    int move = 0;
+    /* int move = 0;
     int from = 6;
     int to = 12;
     int captured = wR;
@@ -220,7 +220,29 @@ int main() {
     printf(
         "From: %d, To: %d, Captured: %d, Promoted: %d",
         FROMSQ(move), TOSQ(move), CAPTURED(move), PROMOTED(move)
+    ); */
+
+    int move = 0;
+    int from = A2;
+    int to = H7;
+    int captured = wR;
+    int promoted = bN;
+
+    move = ((from) | (to << 7) | (captured << 14) | (promoted << 20));
+
+    printf("\nDecimal: %d, Hexadecimal: %X\n", move, move);
+    PrintBin(move);
+
+    printf("\n");
+    
+    printf(
+        "From: %d, To: %d, Captured: %d, Promoted: %d\n\n",
+        FROMSQ(move), TOSQ(move), CAPTURED(move), PROMOTED(move)
     );
+
+    printf("Algebraic from: %s\n", PrintSq(from));
+    printf("Algebraic to: %s\n", PrintSq(to));
+    printf("Algebraic move: %s\n", PrintMove(move));
 
     return 0;
 }
